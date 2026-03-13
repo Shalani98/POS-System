@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>POS Dashboard</title>
+
+    <style>
+
+        body{
+            margin:0;
+            font-family:Arial, Helvetica, sans-serif;
+            background:#f4f6f9;
+        }
+
+        /* Top Navigation */
+        .navbar{
+            background:#1f4037;
+            color:white;
+            padding:15px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .navbar h2{
+            margin:0;
+        }
+
+        .nav-links a{
+            color:white;
+            text-decoration:none;
+            margin-left:20px;
+            font-weight:bold;
+        }
+
+        .nav-links a:hover{
+            text-decoration:underline;
+        }
+
+        /* Container */
+        .container{
+            padding:30px;
+        }
+
+        /* Welcome box */
+        .welcome{
+            background:white;
+            padding:20px;
+            border-radius:8px;
+            margin-bottom:20px;
+            box-shadow:0 5px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Table */
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:white;
+            border-radius:8px;
+            overflow:hidden;
+            box-shadow:0 5px 10px rgba(0,0,0,0.1);
+        }
+
+        th{
+            background:#1f4037;
+            color:white;
+            padding:12px;
+        }
+
+        td{
+            padding:12px;
+            border-bottom:1px solid #ddd;
+        }
+
+        tr:hover{
+            background:#f1f1f1;
+        }
+
+        /* Buttons */
+        .btn{
+            padding:6px 12px;
+            background:#1f4037;
+            color:white;
+            text-decoration:none;
+            border-radius:4px;
+            font-size:14px;
+        }
+
+        .btn:hover{
+            background:#145a52;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <h2>POS Management System</h2>
+
+    <div class="nav-links">
+        <a href="/add">Add Product</a>
+        <a href="/sales">View Sales</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="welcome">
+        <p><strong>Welcome, {{ session['admin'] }}</strong></p>
+    </div>
+
+    <h3>Product Inventory</h3>
+
+    <table>
+
+        <tr>
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Action</th>
+        </tr>
+
+        {% for product in products %}
+        <tr>
+            <td>{{ product[0] }}</td>
+            <td>{{ product[1] }}</td>
+            <td>Rs. {{ product[2] }}</td>
+            <td>{{ product[3] }}</td>
+            <td>
+                <a class="btn" href="/sell/{{ product[0] }}">Sell</a>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</div>
+
+</body>
+</html>
