@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, render_template, request, redirect, session, url_for, flash
 import mysql.connector
 from datetime import datetime
@@ -8,10 +10,10 @@ app.secret_key = "your_secret_key"  # for login sessions
 # MySQL connection
 def get_db():
     return mysql.connector.connect(
-        host="localhost",
-        user="root",        # XAMPP default
-        password="",        # XAMPP default empty
-        database="pos_system"
+        host=os.environ.get("DB_HOST","localhost"),
+        user=os.environ.get("DB_USER","root"),        # XAMPP default
+        password=os.environ.get("DB_PASS",""),        # XAMPP default empty
+        database=os.environ.get("DB_NAME","pos_system")
     )
 
 # Admin login
@@ -113,4 +115,5 @@ def logout():
     return redirect("/")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port=int(os.environ.get("PORT",5000))
+    app.run(host="0.0.0.0",port=port,debug=True)
